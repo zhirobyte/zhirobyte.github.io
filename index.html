@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <style>
+    .counter-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      height: 100vh;
+    }
+
+    .counter {
+      font-size: 48px;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .btn-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .btn-lg {
+      padding: 15px 30px;
+      font-size: 24px;
+    }
+
+    .btn-danger {
+      color: #fff;
+      background-color: #dc3545;
+      border-color: #dc3545;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="counter-container">
+      <p><h3>بسم الله الرحمن الرحيم</h3></p>
+      
+      <div class="form-group">
+        <label for="halamanInput">Halaman:</label>
+        <input type="text" class="form-control" id="halamanInput">
+      </div>
+      <div class="form-group">
+        <label for="juzInput">Juz:</label>
+        <input type="text" class="form-control" id="juzInput">
+      </div>
+      <div class="form-group">
+        <label for="surahInput">Surah:</label>
+        <input type="text" class="form-control" id="surahInput">
+      </div>
+      <div class="counter">0</div>
+      <div class="btn-wrapper">
+        <button id="minusButton" class="btn btn-primary btn-lg mr-2">-</button>
+        <button id="plusButton" class="btn btn-success btn-lg">+</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    var count = 0;
+    var counterElement = document.querySelector('.counter');
+    var plusButton = document.querySelector('#plusButton');
+    var minusButton = document.querySelector('#minusButton');
+    var halamanInput = document.getElementById('halamanInput');
+    var juzInput = document.getElementById('juzInput');
+
+    plusButton.addEventListener('click', function() {
+      var confirmation = confirm("Have you finished 1 lap murojaah? Are you sure?");
+      if (confirmation) {
+        count++;
+        counterElement.textContent = count;
+      }
+    });
+
+    minusButton.addEventListener('click', function() {
+      count--;
+      counterElement.textContent = count;
+    });
+
+    halamanInput.addEventListener('input', function(event) {
+      var halamanValue = event.target.value;
+      console.log('Halaman:', halamanValue);
+    });
+
+    juzInput.addEventListener('input', function(event) {
+      var juzValue = event.target.value;
+      console.log('Juz:', juzValue);
+    });
+  </script>
+
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>
