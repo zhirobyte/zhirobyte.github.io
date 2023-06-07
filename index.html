@@ -13,10 +13,15 @@
     }
 
     .counter {
-      font-size: 8vw; /* Adjust the font size as needed */
+      font-size: 4vw;
       font-weight: bold;
       text-align: center;
       margin-bottom: 20px;
+    }
+
+    .date-time {
+      font-size: 2vw;
+      text-align: center;
     }
 
     .btn-wrapper {
@@ -28,7 +33,7 @@
 
     .btn-lg {
       padding: 15px 30px;
-      font-size: 6vw; /* Adjust the font size as needed */
+      font-size: 3vw;
     }
 
     .btn-danger {
@@ -36,14 +41,28 @@
       background-color: #dc3545;
       border-color: #dc3545;
     }
+
+    @media (max-width: 600px) {
+      .counter {
+        font-size: 8vw;
+      }
+
+      .date-time {
+        font-size: 4vw;
+      }
+
+      .btn-lg {
+        font-size: 6vw;
+      }
+    }
   </style>
 </head>
 <body>
   <div class="container">
     <div class="counter-container">
-          <p><h3>بسم الله الرحمن الرحيم</h3></p>
+      <p><h3>بسم الله الرحمن الرحيم</h3></p>
+      <div class="date-time" id="dateTime"></div>
       <div class="form-group">
-        
         <label for="halamanInput">Halaman:</label>
         <input type="text" class="form-control" id="halamanInput">
       </div>
@@ -56,6 +75,7 @@
         <input type="text" class="form-control" id="surahInput">
       </div>
       <div class="counter">0</div>
+   
       <div class="btn-wrapper">
         <button id="minusButton" class="btn btn-primary btn-lg mr-2">-</button>
         <button id="plusButton" class="btn btn-success btn-lg">+</button>
@@ -70,6 +90,7 @@
     var minusButton = document.querySelector('#minusButton');
     var halamanInput = document.getElementById('halamanInput');
     var juzInput = document.getElementById('juzInput');
+    var dateTimeElement = document.getElementById('dateTime');
 
     plusButton.addEventListener('click', function() {
       var confirmation = confirm("Have you finished 1 lap murojaah? Are you sure?");
@@ -93,6 +114,16 @@
       var juzValue = event.target.value;
       console.log('Juz:', juzValue);
     });
+
+    function updateDateTime() {
+      var currentDateTime = new Date();
+      var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' };
+      var formattedDateTime = currentDateTime.toLocaleString('en-US', options);
+      dateTimeElement.textContent = formattedDateTime;
+    }
+
+    // Update date and time every second
+    setInterval(updateDateTime, 1000);
   </script>
 
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
