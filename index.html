@@ -64,7 +64,7 @@
     <div class="counter-container">
       <p><h3>بسم الله الرحمن الرحيم</h3></p>
       <div class="date-time" id="dateTime"></div>
-      <p></p><br>
+      <p></p><br>s
       <div class="form-group">
         <label for="halamanInput">Halaman:</label>
         <input type="text" class="form-control" id="halamanInput">
@@ -109,29 +109,25 @@
       counterElement.textContent = count;
     });
 
-    halamanInput.addEventListener('input', function(event) {
-      var halamanValue = event.target.value;
-      console.log('Halaman:', halamanValue);
-    });
-
-    juzInput.addEventListener('input', function(event) {
-      var juzValue = event.target.value;
-      console.log('Juz:', juzValue);
-    });
-
     exportButton.addEventListener('click', function() {
       var docDefinition = {
         content: [
           { text: 'Report', style: 'header' },
-          { text: 'Halaman: ' + halamanInput.value, style: 'subheader' },
-          { text: 'Juz: ' + juzInput.value, style: 'subheader' },
-          { text: 'Surah: ' + surahInput.value, style: 'subheader' },
-          { text: 'Counter: ' + count, style: 'subheader' },
-          { text: 'Date Time: ' + new Date().toLocaleString(), style: 'subheader' },
+          {
+            style: 'table',
+            table: {
+              body: [
+                ['Halaman', halamanInput.value],
+                ['Juz', juzInput.value],
+                ['Surah', surahInput.value],
+                ['Date/Time', new Date().toLocaleString()]
+              ]
+            }
+          }
         ],
         styles: {
           header: { fontSize: 24, bold: true, margin: [0, 0, 0, 10] },
-          subheader: { fontSize: 18, bold: true, margin: [0, 10, 0, 5] }
+          table: { margin: [0, 10, 0, 0] }
         }
       };
 
