@@ -3,6 +3,8 @@
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.68/pdfmake.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.68/vfs_fonts.js"></script>
   <style>
     .counter-container {
       display: flex;
@@ -76,10 +78,10 @@
         <input type="text" class="form-control" id="surahInput">
       </div>
       <div class="counter">0</div>
-   
       <div class="btn-wrapper">
         <button id="minusButton" class="btn btn-primary btn-lg mr-2">-</button>
         <button id="plusButton" class="btn btn-success btn-lg">+</button>
+        <button id="exportButton" class="btn btn-info btn-lg ml-2">Export PDF</button>
       </div>
     </div>
   </div>
@@ -92,9 +94,10 @@
     var halamanInput = document.getElementById('halamanInput');
     var juzInput = document.getElementById('juzInput');
     var dateTimeElement = document.getElementById('dateTime');
+    var exportButton = document.getElementById('exportButton');
 
     plusButton.addEventListener('click', function() {
-      var confirmation = confirm("Have you finished 1 murojaah? Are you sure?");
+      var confirmation = confirm("Have you finished 1 lap murojaah? Are you sure?");
       if (confirmation) {
         count++;
         counterElement.textContent = count;
@@ -114,6 +117,25 @@
     juzInput.addEventListener('input', function(event) {
       var juzValue = event.target.value;
       console.log('Juz:', juzValue);
+    });
+
+    exportButton.addEventListener('click', function() {
+      var docDefinition = {
+        content: [
+          { text: 'Report', style: 'header' },
+          { text: 'Halaman: ' + halamanInput.value, style: 'subheader' },
+          { text: 'Juz: ' + juzInput.value, style: 'subheader' },
+          { text: 'Surah: ' + surahInput.value, style: 'subheader' },
+          { text: 'Counter: ' + count, style: 'subheader' },
+          { text: 'Date Time: ' + new Date().toLocaleString(), style: 'subheader' },
+        ],
+        styles: {
+          header: { fontSize: 24, bold: true, margin: [0, 0, 0, 10] },
+          subheader: { fontSize: 18, bold: true, margin: [0, 10, 0, 5] }
+        }
+      };
+
+      pdfMake.createPdf(docDefinition).download('report.pdf');
     });
 
     function updateDateTime() {
